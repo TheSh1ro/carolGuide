@@ -89,7 +89,10 @@ body {
 #app {
   display: flex;
   min-height: 100vh;
+  min-width: 100%;
   background-color: rgba(255, 0, 0, 0.05);
+  background-image: url(https://i.pinimg.com/originals/a8/99/13/a899134acde0d3207e3cc0bfc1c65a6d.gif);
+  background-size: cover;
 }
 
 /* Estilo da scrollbar para navegadores baseados em WebKit */

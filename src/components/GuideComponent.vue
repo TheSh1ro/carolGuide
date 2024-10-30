@@ -1,5 +1,5 @@
 <template>
-  <main class="main-guide">
+  <main id="guide-main">
     <header class="header">
       <span
         class="champion-button"
@@ -21,9 +21,10 @@
           :class="{ 'row-selected': goal.selected }"
         >
           {{ goal.text }}
-        </div>
+        </div>np
       </div>
       <div class="result">
+        <p>{{ selectedChampion }}</p>
         <p v-if="selectedChampion && selectedGoal">
           {{ selectedChampion.name }}: {{ selectedGoal.text }}
         </p>
@@ -34,17 +35,12 @@
 
 <script>
 export default {
-  props: [],
+  props: ['champions', 'toggleSelectedChampion', 'selectedChampion'],
+
   data() {
     return {
-      champions: [
-        { id: 1, name: 'Nami', selected: false },
-        { id: 2, name: 'Lulu', selected: false },
-        { id: 3, name: 'Yuumi', selected: false },
-      ],
-
       goals: [
-        { id: 1, text: 'Quando se deve dar leash', selected: false },
+        { id: 1, text: 'Quando se deve dar leash', selected: true },
         { id: 2, text: 'Quando e o que itemizar', selected: false },
         {
           id: 3,
@@ -82,21 +78,12 @@ export default {
   created() {},
   mounted() {},
   computed: {
-    selectedChampion() {
-      return this.champions.find(champion => champion.selected)
-    },
     selectedGoal() {
       return this.goals.find(goal => goal.selected)
     },
   },
   watch: {},
   methods: {
-    toggleSelectedChampion(champion) {
-      this.champions.forEach(champion => {
-        champion.selected = false
-      })
-      champion.selected = true
-    },
     toggleSelectedRow(goal) {
       this.goals.forEach(goal => {
         goal.selected = false
@@ -108,13 +95,15 @@ export default {
 </script>
 
 <style scoped>
-.main-guide {
+#guide-main {
+  display: grid;
+  flex: 1;
+
   border-top-left-radius: 26px;
   border-top-right-radius: 26px;
   border-bottom-left-radius: 26px;
-  margin: 15px auto;
-  height: fit-content;
-  width: calc(100vw - 40px);
+
+  margin: 40px;
 }
 
 header {
@@ -172,7 +161,10 @@ header {
   background-color: rgb(15, 15, 15);
 
   & .row {
-    padding: 1rem;
+    display: flex;
+    align-items: center;
+    padding-inline: 1rem;
+    height: 3.25em;
     cursor: pointer;
     transition: font 0.2s;
   }
@@ -193,5 +185,6 @@ header {
 .result {
   background-color: rgb(40, 40, 40);
   padding: 20px;
+  filter: opacity(0.75);
 }
 </style>
